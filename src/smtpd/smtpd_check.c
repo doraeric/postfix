@@ -4374,8 +4374,8 @@ static int generic_checks(SMTPD_STATE *state, ARGV *restrictions,
 	    }
 	} else if (is_map_command(state, name, CHECK_CCERT_ACL, &cpp)) {
 	    status = check_ccert_access(state, *cpp, def_acl);
-#ifdef USE_SASL_AUTH
 	} else if (is_map_command(state, name, CHECK_SASL_ACL, &cpp)) {
+#ifdef USE_SASL_AUTH
 	    if (var_smtpd_sasl_enable) {
 		if (state->sasl_username && state->sasl_username[0])
 		    status = check_sasl_access(state, *cpp, def_acl);
@@ -5098,7 +5098,7 @@ char   *smtpd_check_rcpt(SMTPD_STATE *state, char *recipient)
      * value would block the request, without logging REJECT messages.
      * Approach: evaluate fake relay restrictions (permit_mynetworks,
      * permit_sasl_authenticated, permit_auth_destination) and log a warning
-     * if the result is DUNNO instead of OK, i.e. a reject_unauth_destinatin
+     * if the result is DUNNO instead of OK, i.e. a reject_unauth_destination
      * at the end would have blocked the request.
      * 
      * If warn_compat_break_relay_restrictions is true, always evaluate
